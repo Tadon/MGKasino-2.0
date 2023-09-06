@@ -11,7 +11,7 @@ def read_csv_file(filename):
     return data
 
 def add_user_to_database(filename, new_username, new_password):
-     with open(filename, 'a', newline = '') as file:
+     with open(filename, 'a', newline = '\n') as file:
           csv_writer = csv.writer(file)
           csv_writer.writerow([new_username, new_password, 10000])
 
@@ -47,5 +47,6 @@ while True:
           new_password = input('Enter password: ')
           add_user_to_database(filename, new_username, new_password)
           print(f'User added! Welcome to MGKasino 2.0, {new_username}!')
+          user_data[new_username] = {'password': new_password, 'balance': 10000}
 #user_name = input('Enter username: ')
 #verify_user(user_name, user_data)
