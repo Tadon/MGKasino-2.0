@@ -7,7 +7,7 @@ def read_csv_file(filename):
         next(csv_reader)
         for row in csv_reader:
             username, password, balance = row
-            data.append({'username': username, 'password': password, 'balance': float(balance)})
+            data.append({'username': username, 'password': password, 'balance': float(balance) })
     return data
 
 filename = 'casino_data.csv'
