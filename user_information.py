@@ -16,9 +16,11 @@ class UserInformation:
         with open(filename, 'a', newline = '\n') as file:
             csv_writer = csv.writer(file)
             csv_writer.writerow([new_username, new_password, 10000])
+
     #getting balance for specified user
     def get_balance(username, user_data):
         return user_data[username]['balance']
+    
     #changing balance
     def change_balance(username,password, user_data, amount):
         user_data[username]['balance'] = amount
@@ -37,10 +39,7 @@ class UserInformation:
             csv_writer = csv.writer(file)
             for user, data in user_data.items():
                 csv_writer.writerow([user, data['password'], data['balance']])
-
-
-
-
+    #verify user method
     def verify_user(user_name, user_data):
         for user in user_data:
             valid_user = False
