@@ -23,10 +23,6 @@ while verified_user == False:
           user_data[new_username] = {'password': new_password, 'balance': 10000}
           verified_user = True
 
-password = UserInformation.get_password(new_username,user_data)
-balance = UserInformation.get_balance(new_username, user_data)
-new_balance = 15000
-UserInformation.set_balance(new_username, balance, user_data, new_balance)
-print(balance)
+
 #user_name = input('Enter username: ')
 #verify_user(user_name, user_data)
