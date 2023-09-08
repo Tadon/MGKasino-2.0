@@ -29,8 +29,8 @@ while verified_user == False:
           password = input('Enter desired password: ')
           pw_check = input('Please re-enter password: ')
           while password != pw_check:
-               password = input('Passwords do not match. Re-enter password')
-               pw_check = input('Enter password again')
+               password = input('Passwords do not match. Re-enter password: ')
+               pw_check = input('Enter password again: ')
           UserInformation.add_user_to_database(filename, username, password)
           print(f'User added! Welcome to MGKasino 2.0, {username}!')
           user_data[username] = {'password': password, 'balance': 10000}
