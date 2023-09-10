@@ -14,5 +14,5 @@ while username == '':
      username = UserInformation.user_verification(user_data)
      balance = UserInformation.get_balance(username, user_data)
      password = UserInformation.get_password(username, user_data)
-
+#testing
 print(f'{username} with password {password} has a balance of ${balance}.')
