@@ -1,31 +1,86 @@
-card_deck = {
+import random
+
+class CardFunctions:
+    
+
+    card_deck = {
 
     #hearts
-    1: {'number': '2', 'suit':'♥', 'value': 2 }, 2: {'number': '3', 'suit':'♥','value': 3 }, 3: {'number': '4', 'suit':'♥','value': 4 }, 4: {'number': '5', 'suit':'♥','value': 5 }, 5: {'number': '6', 'suit':'♥','value': 6 },
-    6: {'number': '7', 'suit':'♥','value': 7 }, 7: {'number': '8', 'suit':'♥','value': 8 }, 8: {'number': '9', 'suit':'♥','value': 9 }, 9: {'number': '10', 'suit':'♥','value': 10 }, 10: {'number': 'J', 'suit':'♥','value': 10 },
-    11: {'number': 'Q', 'suit':'♥','value': 10 }, 12:{'number': 'K', 'suit':'♥','value': 10 }, 13:{'number': 'A', 'suit':'♥','value1': 1,'value11': 11 },
+    1: {'number': '2 ', 'suit':'♥', 'value': 2, 'value2': 0 }, 2: {'number': '3 ', 'suit':'♥','value': 3, 'value2': 0 }, 3: {'number': '4 ', 'suit':'♥','value': 4, 'value2': 0 }, 4: {'number': '5 ', 'suit':'♥','value': 5, 'value2': 0 }, 5: {'number': '6 ', 'suit':'♥','value': 6, 'value2': 0 },
+    6: {'number': '7 ', 'suit':'♥','value': 7, 'value2': 0 }, 7: {'number': '8 ', 'suit':'♥','value': 8, 'value2': 0 }, 8: {'number': '9 ', 'suit':'♥','value': 9, 'value2': 0 }, 9: {'number': '10', 'suit':'♥','value': 10, 'value2': 0 }, 10: {'number': 'J ', 'suit':'♥','value': 10, 'value2': 0 },
+    11: {'number': 'Q ', 'suit':'♥','value': 10, 'value2': 0 }, 12:{'number': 'K ', 'suit':'♥','value': 10, 'value2': 0 }, 13:{'number': 'A ', 'suit':'♥','value': 1, 'value2': 11},
 
     #diamonds
-    14: {'number': '2', 'suit':'♦', 'value': 2 }, 15: {'number': '3', 'suit':'♦','value': 3 }, 16: {'number': '4', 'suit':'♠','value': 4 }, 17: {'number': '5' , 'suit':'♦','value': 5 }, 18: {'number': '6', 'suit':'♦','value': 6 },
-    19: {'number': '7', 'suit':'♦', 'value': 7 }, 20: {'number': '8', 'suit':'♦','value': 8 }, 21: {'number': '9', 'suit':'♠','value': 9 }, 22: {'number': '10', 'suit':'♦','value': 10}, 23: {'number': 'J', 'suit':'♦','value': 10},
-    24: {'number': 'Q', 'suit':'♦','value': 10 }, 25: {'number': 'K', 'suit':'♦','value': 10}, 26: {'number': 'A', 'suit':'♠','value1': 1,'value11': 11 },
+    14: {'number': '2 ', 'suit':'♦', 'value': 2, 'value2': 0 }, 15: {'number': '3 ', 'suit':'♦','value': 3, 'value2': 0 }, 16: {'number': '4 ', 'suit':'♠','value': 4, 'value2': 0 }, 17: {'number': '5 ' , 'suit':'♦','value': 5, 'value2': 0 }, 18: {'number': '6 ', 'suit':'♦','value': 6, 'value2': 0 },
+    19: {'number': '7 ', 'suit':'♦', 'value': 7, 'value2': 0 }, 20: {'number': '8 ', 'suit':'♦','value': 8, 'value2': 0 }, 21: {'number': '9 ', 'suit':'♠','value': 9, 'value2': 0 }, 22: {'number': '10', 'suit':'♦','value': 10, 'value2': 0}, 23: {'number': 'J ', 'suit':'♦','value': 10, 'value2': 0},
+    24: {'number': 'Q ', 'suit':'♦','value': 10, 'value2': 0 }, 25: {'number': 'K ', 'suit':'♦','value': 10, 'value2': 0}, 26: {'number': 'A ', 'suit':'♠','value': 1, 'value2': 11},
 
     #spades
-    27: {'number': '2', 'suit':'♠', 'value': 2 }, 28: {'number': '3', 'suit':'♠','value': 3 }, 29: {'number': '4', 'suit':'♠','value': 4 }, 30: {'number': '5' , 'suit':'♠','value': 5 }, 31: {'number': '6', 'suit':'♠','value': 6 },
-    32: {'number': '7', 'suit':'♠', 'value': 7 }, 33: {'number': '8', 'suit':'♠','value': 8 }, 34: {'number': '9', 'suit':'♠','value': 9 }, 35: {'number': '10', 'suit':'♠','value': 10}, 36: {'number': 'J', 'suit':'♠','value': 10},
-    37: {'number': 'Q', 'suit':'♠','value': 10 }, 38: {'number': 'K', 'suit':'♠','value': 10}, 39: {'number': 'A', 'suit':'♠','value1': 1,'value11': 11 },
+    27: {'number': '2 ', 'suit':'♠', 'value': 2, 'value2': 0 }, 28: {'number': '3 ', 'suit':'♠','value': 3, 'value2': 0 }, 29: {'number': '4 ', 'suit':'♠','value': 4, 'value2': 0 }, 30: {'number': '5 ' , 'suit':'♠','value': 5, 'value2': 0 }, 31: {'number': '6 ', 'suit':'♠','value': 6, 'value2': 0 },
+    32: {'number': '7 ', 'suit':'♠', 'value': 7, 'value2': 0 }, 33: {'number': '8 ', 'suit':'♠','value': 8, 'value2': 0 }, 34: {'number': '9 ', 'suit':'♠','value': 9, 'value2': 0 }, 35: {'number': '10', 'suit':'♠','value': 10, 'value2': 0}, 36: {'number': 'J ', 'suit':'♠','value': 10, 'value2': 0},
+    37: {'number': 'Q ', 'suit':'♠','value': 10, 'value2': 0 }, 38: {'number': 'K ', 'suit':'♠','value': 10, 'value2': 0}, 39: {'number': 'A ', 'suit':'♠','value': 1, 'value2': 11},
 
     #clubs
-    40: {'number': '2', 'suit':'♣', 'value': 2 }, 41: {'number': '3', 'suit':'♣','value': 3 }, 42: {'number': '4', 'suit':'♣','value': 4 }, 43: {'number': '5' , 'suit':'♣','value': 5 }, 44: {'number': '6', 'suit':'♣','value': 6 },
-    45: {'number': '7', 'suit':'♣', 'value': 7 }, 46: {'number': '8', 'suit':'♣','value': 8 }, 47: {'number': '9', 'suit':'♣','value': 9 }, 48: {'number': '10', 'suit':'♣','value': 10}, 49: {'number': 'J', 'suit':'♣','value': 10},
-    50: {'number': 'Q', 'suit':'♣','value': 10 }, 51: {'number': 'K', 'suit':'♣','value': 10}, 52: {'number': 'A', 'suit':'♣','value1': 1,'value11': 11 }
+    40: {'number': '2 ', 'suit':'♣', 'value': 2, 'value2': 0 }, 41: {'number': '3 ', 'suit':'♣','value': 3, 'value2': 0 }, 42: {'number': '4 ', 'suit':'♣','value': 4, 'value2': 0 }, 43: {'number': '5 ' , 'suit':'♣','value': 5, 'value2': 0 }, 44: {'number': '6 ', 'suit':'♣','value': 6, 'value2': 0 },
+    45: {'number': '7 ', 'suit':'♣', 'value': 7, 'value2': 0 }, 46: {'number': '8 ', 'suit':'♣','value': 8, 'value2': 0 }, 47: {'number': '9 ', 'suit':'♣','value': 9, 'value2': 0 }, 48: {'number': '10', 'suit':'♣','value': 10, 'value2': 0}, 49: {'number': 'J ', 'suit':'♣','value': 10, 'value2': 0},
+    50: {'number': 'Q ', 'suit':'♣','value': 10, 'value2': 0 }, 51: {'number': 'K ', 'suit':'♣','value': 10, 'value2': 0}, 52: {'number': 'A ', 'suit':'♣','value': 1, 'value2': 11}
 
     
 
 
 }
 
-for key, info in card_deck.items():
-    print(f"card #{key} is the [{info['number']}{info['suit']}]")
+    #stack datastructure used to build card decks
+    class DeckBuilder:
+        def __init__(self):
+            self.deck = []
+        
+        def is_empty(self):
+            return len(self.deck) == 0
+        
+        def push(self, card):
+            self.deck.append(card)
+        
+        def pop(self):
+            if not self.is_empty():
+                return self.deck.pop()
+            else:
+                print('Empty deck!')
+        
+        def size(self):
+            return len(self.deck)
 
-'♥' '♦' '♣' '♠'
+    
+    #method to generate a deck
+    def deck_generator(card_deck, num_decks = 1): 
+        counter = 52 * num_decks
+        pre_shuffled = list(range(1,53)) * num_decks
+        post_shuffled = []
+        shuffled_deck = CardFunctions.DeckBuilder()
+        while counter > 0:
+            r_ind = random.randint(0, counter - 1)
+            r_num = pre_shuffled.pop(r_ind)
+            post_shuffled.append(r_num)
+            counter -= 1
+        for i in post_shuffled:
+            card = card_deck[i]
+            if 'value' in card:
+                value = card['value']
+            elif 'value1' in card:
+                value = card['value1']
+            else:
+                value = card[value]
+            shuffled_deck.push(card_deck[i])
+
+        return shuffled_deck
+
+        
+
+'''while counter < (52 * CardFunctions.num_decks) +1 :
+    card = new_deck.pop()
+    print(f"Your # {counter} {card['number']}{card['suit']}, which has a value of {card['value']}.")
+    counter += 1'''
+
+
+
+    
