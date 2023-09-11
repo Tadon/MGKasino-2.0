@@ -63,13 +63,6 @@ class CardFunctions:
             post_shuffled.append(r_num)
             counter -= 1
         for i in post_shuffled:
-            card = card_deck[i]
-            if 'value' in card:
-                value = card['value']
-            elif 'value1' in card:
-                value = card['value1']
-            else:
-                value = card[value]
             shuffled_deck.push(card_deck[i])
 
         return shuffled_deck
