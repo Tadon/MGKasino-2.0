@@ -1,5 +1,12 @@
 from card_functions import CardFunctions
+import random
 
-for i, card_info in CardFunctions.card_deck.items():
-    
-    print (f"card #{i} is a [{card_info['number']}{card_info['suit']}] which has a value of {card_info['value']}")
+dealer_value = 0
+player_value = 0
+random_int = 0
+hand_in_progress = True
+while hand_in_progress == True:
+    dealer_hand = []
+    player_hand = []
+    next_card = CardFunctions.get_card()
+    print(f"{next_card['number']}{next_card['suit']}{next_card['value']}")
