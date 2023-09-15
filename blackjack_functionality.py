@@ -1,6 +1,7 @@
 from card_functions import CardFunctions
 from user_information import UserInformation
 import random
+import time
 
 class BlackJack:
 
@@ -11,38 +12,56 @@ class BlackJack:
         playing_blackjack = True
         print('Welcome to MGBlackjack! Where the odds are always in our favor.')
         while playing_blackjack:
-            dealer_value, player_value = 0, 0
-            dealer_hand, player_hand = [], []
-            dealer_info, player_info = "", ""
-            hand_in_progress = True
-            dealer_hand.append(random.choice(CardFunctions.card_deck))
-            player_hand.append(random.choice(CardFunctions.card_deck))
-            player_hand.append(random.choice(CardFunctions.card_deck))
+            ##Required variables to hold blackjack hand information        
+            dealer_value, player_value = 0, 0 #holding the numerical value of player and dealer hands
+            dealer_hand, player_hand = [], [] #holding dictionary info pulled from actual card deck, information here is used to add  value to value variables and concantenate onto info variables so we can display the cards to user
+            dealer_info, player_info = "", "" #adding number and suit values from dealer/player hand variables to these strings, concantenating them so the user can visibly see the cards in their hand
 
+            #boolean used to initialize each individual hand, will restart after the end of each hand
+            hand_in_progress = True
+            
+            #dealing 3 initial cards before hand begins
+            dealer_hand.append(BlackJack.deal_card())
+            player_hand.append(BlackJack.deal_card())
+            player_hand.append(BlackJack.deal_card())
+
+            #adding first card dealt to dealer hand to dealer value and info
             first_card = dealer_hand[0]
             dealer_value += first_card['value']
-            dealer_info += first_card['number'] + first_card['suit'] + ''                
+            dealer_info += first_card['number'] + first_card['suit'] + ''  
+
+            #adding both initial player dealt cards to player info and value      
             for i in player_hand:
                 player_info += i['number']+i['suit'] + ''
                 if i['number'] == '[A ' and i['value2'] + player_value < 22:
                     player_value += i['value2']
                 else:
                     player_value += i['value']
-                
+
+            #displaying initially dealt hands               
             print(f'Dealer\'s hand: {dealer_info} with a value of {dealer_value}')
             print(f'Player\'s hand: {player_info} with a value of {player_value}')
-            
+
+            #if player is dealt a blackjack, player wins and hand ends
+            if player_value == 21:
+                    print('Blackjack! You win!')
+                    hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
+
+            #while loop that keeps player in individual hand until it ends
             while hand_in_progress:
-                user_choice = input('1: hit 2: stay: ').strip()
-
-                while user_choice not in ['1', '2']:
-                    user_choice = int(input('Invalid Selection. please type 1 for hit or 2 for stay: '))
                 
-                user_choice = int(user_choice)
+                #taking in choice from user as a string, so that we can use strip method to make sure we can read the input, then converting string to int
+                user_choice = input('1: hit 2: stay: ').strip()
+                #user_choice = int(user_choice)
 
-                if user_choice == 1 and player_value < 21:
+                while user_choice != '1' and user_choice != '2':
+                    user_choice = input('Invalid Selection. please type 1 for hit or 2 for stay: ').strip()
+                
+                
 
-                    new_card = random.choice(CardFunctions.card_deck)
+                if user_choice == '1' and player_value < 21:
+
+                    new_card = BlackJack.deal_card()
                     player_hand.append(new_card)
                     if new_card['number'] == '[A ':
                         player_value += 11
@@ -60,11 +79,11 @@ class BlackJack:
                     
                     if player_value > 21:
                         print('Busted!')
-                        hand_in_progress = False
+                        hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
                                                            
-                elif user_choice == 2 or player_value == 21:
+                elif user_choice == '2' or player_value == 21:
                     while dealer_value < 17:
-                        new_card = random.choice(CardFunctions.card_deck)
+                        new_card = BlackJack.deal_card()
                         dealer_hand.append(new_card)
                         if new_card['number'] == '[A ' and new_card['value2'] + dealer_value < 22:
                             dealer_value += new_card['value2']
@@ -73,14 +92,36 @@ class BlackJack:
                         dealer_info += new_card['number']+ new_card['suit'] + ''
                         print(f'Dealer\'s hand: {dealer_info} with a value of {dealer_value}')
                     
+                    if dealer_value < 22:
+                        hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
+                    
                     if dealer_value > 21:
                         print('Dealer Busts! You Win!')
-                
-                    hand_in_progress = False
-                
-                        
+                        hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
+                    
 
+    def end_of_hand():
+        
 
+        user_choice = input('Play again? 1: yes 2: no: ').strip()
+        
+
+        while user_choice != '1' and user_choice != '2':
+            user_choice = input('invalid choice. please type 1 for yes or 2 for no: ').strip()
+        
+        if user_choice == '1':
+            playing_blackjack = True
+            hand_in_progress = False
+        
+        if user_choice == '2':
+            hand_in_progress = False
+            playing_blackjack = False              
+
+        return hand_in_progress, playing_blackjack
+
+    def deal_card():
+        card_list = list(CardFunctions.card_deck.values())
+        return random.choice(card_list)
                     
                 
                 
