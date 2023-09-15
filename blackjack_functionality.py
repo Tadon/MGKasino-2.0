@@ -44,11 +44,17 @@ class BlackJack:
 
                     new_card = random.choice(CardFunctions.card_deck)
                     player_hand.append(new_card)
-                    if new_card['number'] == '[A ' and new_card['value2'] + player_value < 22:
-                        player_value += new_card['value2']
+                    if new_card['number'] == '[A ':
+                        player_value += 11
                     else:
                         player_value += new_card['value']
                     player_info += new_card['number'] + new_card['suit'] + ''
+
+                    
+                    while player_value > 21 and '[A ' in player_info:
+                        player_value -= 10
+                        player_info = player_info.replace('[A ', '[ A')
+
                     print(f'Dealer\'s hand: {dealer_info} with a value of {dealer_value}')
                     print(f'Player\'s hand: {player_info} with a value of {player_value}')
                     
@@ -56,7 +62,7 @@ class BlackJack:
                         print('Busted!')
                         hand_in_progress = False
                                                            
-                elif user_choice == 2:
+                elif user_choice == 2 or player_value == 21:
                     while dealer_value < 17:
                         new_card = random.choice(CardFunctions.card_deck)
                         dealer_hand.append(new_card)
