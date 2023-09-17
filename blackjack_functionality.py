@@ -3,7 +3,7 @@ from user_information import UserInformation
 import random
 import time
 
-balance = 100
+balance = 0
 
 class BlackJack:
 
@@ -154,6 +154,7 @@ class BlackJack:
         if balance < 1:
             pre_game = False
             hand_in_progress = False
+            playing_blackjack = False
             print(f'Your balance is {balance}! Please deposit before playing')
             return playing_blackjack, valid_wager, pre_game, hand_in_progress
         wager_amount = input('Enter wager amount or type exit to exit').strip().lower()
