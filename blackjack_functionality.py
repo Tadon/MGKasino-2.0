@@ -136,6 +136,7 @@ class BlackJack:
                         hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
                         balance += wager_amount
         return balance
+    
     def end_of_hand():
         
 
@@ -184,6 +185,4 @@ class BlackJack:
             
 
 
-balance = BlackJack.play_blackjack(balance)
 
-print(balance)

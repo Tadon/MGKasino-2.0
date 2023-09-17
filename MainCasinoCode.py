@@ -1,6 +1,7 @@
 #pulling user functionality from user_information.py
 from user_information import UserInformation
 from card_functions import CardFunctions
+from blackjack_functionality import BlackJack
 
 #required variables
 filename = 'casino_data.csv'
@@ -17,9 +18,7 @@ while username == '':
      password = UserInformation.get_password(username, user_data)
 #testing
 print(f'{username} with password {password} has a balance of ${balance}.')
+balance = BlackJack.play_blackjack(balance)
+print(balance)
 
-
-new_deck = CardFunctions.deck_generator(CardFunctions.card_deck, num_decks = 1)
-
-counter = 1
 
