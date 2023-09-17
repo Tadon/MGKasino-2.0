@@ -3,7 +3,7 @@ from user_information import UserInformation
 import random
 import time
 
-balance = 0
+balance = 10000
 
 class BlackJack:
 
@@ -61,7 +61,7 @@ class BlackJack:
                     print('Dealer blackjack! You lose')
                     hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
                     balance -= wager_amount
-
+                    
                 #if player is dealt a blackjack, player wins and hand ends
                 if player_value == 21:
                     print('Blackjack! You win!')
@@ -97,15 +97,21 @@ class BlackJack:
                         player_value -= 10
                         player_info = player_info.replace('[A ', '[ A')
 
-                    print(f'Dealer\'s hand: {dealer_info} with a value of {dealer_value}')
-                    print(f'Player\'s hand: {player_info} with a value of {player_value}')
+                    print(f'Dealer\'s hand: {initial_hand}')
+                    print(f'Player\'s hand: {player_info}')
+
+                    if player_value == 21:
+                        continue
                     
                     if player_value > 21:
                         print('Busted!')
                         hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
+                        balance -= wager_amount
                                                            
                 elif user_choice == '2' or player_value == 21:
+                    print(f'Dealer\'s Hand: {dealer_info}')
                     while dealer_value < 17:
+                        time.sleep(1)
                         new_card = BlackJack.deal_card()
                         dealer_hand.append(new_card)
                         if new_card['number'] == '[A ' and new_card['value2'] + dealer_value < 22:
@@ -115,14 +121,21 @@ class BlackJack:
                         dealer_info += new_card['number']+ new_card['suit'] + ''
                         print(f'Dealer\'s hand: {dealer_info} with a value of {dealer_value}')
                     
-                    if dealer_value < 22:
-                        hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
-                    
                     if dealer_value > 21:
                         print('Dealer Busts! You Win!')
                         hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
+                        balance += wager_amount
                     
+                    elif dealer_value < 22 and dealer_value > player_value:
+                        print(f'Dealer wins with a value of {dealer_value}')
+                        hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
+                        balance -= wager_amount
 
+                    elif player_value < 22 and player_value > dealer_value:
+                        print(f'You win with a value of {player_value}')
+                        hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
+                        balance += wager_amount
+        return balance
     def end_of_hand():
         
 
@@ -171,4 +184,6 @@ class BlackJack:
             
 
 
-print(BlackJack.play_blackjack(balance))
+balance = BlackJack.play_blackjack(balance)
+
+print(balance)
