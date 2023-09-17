@@ -155,9 +155,9 @@ class BlackJack:
             pre_game = False
             hand_in_progress = False
             playing_blackjack = False
-            print(f'Your balance is {balance}! Please deposit before playing')
+            print(f'Your balance is {balance}! Please deposit before playing.')
             return playing_blackjack, valid_wager, pre_game, hand_in_progress
-        wager_amount = input('Enter wager amount or type exit to exit').strip().lower()
+        wager_amount = input('Enter wager amount or type exit to exit: ').strip().lower()
         if wager_amount == 'exit':
             pre_game = False
             hand_in_progress = False
@@ -165,7 +165,7 @@ class BlackJack:
         if wager_amount.isdigit():
             valid_wager = float(wager_amount)
         while valid_wager > balance:
-            valid_wager = float(input(f'You can\'t bet more than your wager! Please make sure your bet is not higher than {balance}'))
+            valid_wager = float(input(f'You can\'t bet more than your wager! Please make sure your bet is not higher than {balance}: '))
                      
         return playing_blackjack, valid_wager, pre_game, hand_in_progress        
             
