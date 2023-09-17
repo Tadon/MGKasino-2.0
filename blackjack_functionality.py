@@ -3,49 +3,72 @@ from user_information import UserInformation
 import random
 import time
 
+balance = 100
+
 class BlackJack:
 
     def __init__(self, balance):
         self.balance = balance
 
-    def play_blackjack():
+    def play_blackjack(balance):
+        balance = balance
         playing_blackjack = True
         print('Welcome to MGBlackjack! Where the odds are always in our favor.')
         while playing_blackjack:
+            
             ##Required variables to hold blackjack hand information        
             dealer_value, player_value = 0, 0 #holding the numerical value of player and dealer hands
             dealer_hand, player_hand = [], [] #holding dictionary info pulled from actual card deck, information here is used to add  value to value variables and concantenate onto info variables so we can display the cards to user
             dealer_info, player_info = "", "" #adding number and suit values from dealer/player hand variables to these strings, concantenating them so the user can visibly see the cards in their hand
-
-            #boolean used to initialize each individual hand, will restart after the end of each hand
+            initial_hand = ""
+            wager_amount = 0
             hand_in_progress = True
+            pre_hand = True
+
+            playing_blackjack, wager_amount, pre_hand, hand_in_progress = BlackJack.get_wager(balance)
             
-            #dealing 3 initial cards before hand begins
-            dealer_hand.append(BlackJack.deal_card())
-            player_hand.append(BlackJack.deal_card())
-            player_hand.append(BlackJack.deal_card())
+            while pre_hand:
+                #dealing 4 initial cards before hand begins
+                dealer_hand.append(BlackJack.deal_card())
+                player_hand.append(BlackJack.deal_card())
+                dealer_hand.append(BlackJack.deal_card())
+                player_hand.append(BlackJack.deal_card())
 
-            #adding first card dealt to dealer hand to dealer value and info
-            first_card = dealer_hand[0]
-            dealer_value += first_card['value']
-            dealer_info += first_card['number'] + first_card['suit'] + ''  
+                #adding first card dealt to dealer hand to dealer value and info
+                first_card = dealer_hand[0]
+                second_card = dealer_hand[1]
+                dealer_value = dealer_value + first_card['value'] + second_card['value']
+                dealer_info += first_card['number'] + first_card['suit'] + '' + second_card['number'] + second_card ['suit'] + ''
+                initial_hand += first_card['number'] + first_card['suit'] + '[ ? ]'
+                
 
-            #adding both initial player dealt cards to player info and value      
-            for i in player_hand:
-                player_info += i['number']+i['suit'] + ''
-                if i['number'] == '[A ' and i['value2'] + player_value < 22:
-                    player_value += i['value2']
-                else:
-                    player_value += i['value']
+                #adding both initial player dealt cards to player info and value      
+                for i in player_hand:
+                    player_info += i['number']+i['suit'] + ''
+                    if i['number'] == '[A ' and i['value2'] + player_value < 22:
+                        player_value += i['value2']
+                    else:
+                        player_value += i['value']
 
-            #displaying initially dealt hands               
-            print(f'Dealer\'s hand: {dealer_info} with a value of {dealer_value}')
-            print(f'Player\'s hand: {player_info} with a value of {player_value}')
+                #displaying initially dealt hands               
+                print(f'Dealer\'s hand: {initial_hand} with a value of {first_card["value"]}')
+                print(f'Player\'s hand: {player_info} with a value of {player_value}')
+                if dealer_value == 21 and player_value == 21:
+                    print('Double blackjack! Push!')
+                    hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
+                
+                if dealer_value == 21:
+                    print('Dealer blackjack! You lose')
+                    hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
+                    balance -= wager_amount
 
-            #if player is dealt a blackjack, player wins and hand ends
-            if player_value == 21:
+                #if player is dealt a blackjack, player wins and hand ends
+                if player_value == 21:
                     print('Blackjack! You win!')
                     hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
+                    balance += (wager_amount * 1.5)
+                
+                pre_hand = False
 
             #while loop that keeps player in individual hand until it ends
             while hand_in_progress:
@@ -123,9 +146,28 @@ class BlackJack:
         card_list = list(CardFunctions.card_deck.values())
         return random.choice(card_list)
                     
-                
-                
+    def get_wager(balance):
+        valid_wager = 0
+        hand_in_progress = True
+        playing_blackjack = True
+        pre_game = True
+        if balance < 1:
+            pre_game = False
+            hand_in_progress = False
+            print(f'Your balance is {balance}! Please deposit before playing')
+            return playing_blackjack, valid_wager, pre_game, hand_in_progress
+        wager_amount = input('Enter wager amount or type exit to exit').strip().lower()
+        if wager_amount == 'exit':
+            pre_game = False
+            hand_in_progress = False
+            playing_blackjack = False   
+        if wager_amount.isdigit():
+            valid_wager = float(wager_amount)
+        while valid_wager > balance:
+            valid_wager = float(input(f'You can\'t bet more than your wager! Please make sure your bet is not higher than {balance}'))
+                     
+        return playing_blackjack, valid_wager, pre_game, hand_in_progress        
             
 
 
-print(BlackJack.play_blackjack())
+print(BlackJack.play_blackjack(balance))
