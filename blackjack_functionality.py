@@ -2,6 +2,7 @@ from card_functions import CardFunctions
 from user_information import UserInformation
 import random
 import time
+import json
 
 balance = 10000
 
@@ -53,6 +54,19 @@ class BlackJack:
                 #displaying initially dealt hands               
                 print(f'Dealer\'s hand: {initial_hand} with a value of {first_card["value"]}')
                 print(f'Player\'s hand: {player_info} with a value of {player_value}')
+
+                if first_card['number'] == '[A ':
+                    user_choice = input('Insurance? 1 for yes 2 for no: ').strip()
+                    while user_choice != '1' and user_choice != '2':
+                        user_choice = input('Invalid choice. Please enter 1 for yes or 2 for no')
+                    if user_choice == '1' and dealer_value == 21:
+                        print('Dealer has 21. Insurance pays 2 to 1')
+                        balance += wager_amount
+                    if user_choice == '2' and dealer_value != 21:
+                        balance -= wager_amount * 0.5
+                    else:
+                        continue
+
                 if dealer_value == 21 and player_value == 21:
                     print('Double blackjack! Push!')
                     hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
@@ -135,6 +149,9 @@ class BlackJack:
                         print(f'You win with a value of {player_value}')
                         hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
                         balance += wager_amount
+                    elif player_value == dealer_value:
+                        print(f'push! You both have {player_value}')
+                        hand_in_progress, playing_blackjack = BlackJack.end_of_hand()
         return balance
     
     def end_of_hand():
@@ -183,6 +200,7 @@ class BlackJack:
                      
         return playing_blackjack, valid_wager, pre_game, hand_in_progress        
             
+    
 
 
 
