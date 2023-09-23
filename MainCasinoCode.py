@@ -3,6 +3,7 @@ from user_information import UserInformation
 from card_functions import CardFunctions
 from blackjack_functionality import BlackJack
 
+
 #required variables
 filename = 'casino_data.csv'
 user_data = UserInformation.read_csv_file(filename)
@@ -17,8 +18,11 @@ while username == '':
      balance = UserInformation.get_balance(username, user_data)
      password = UserInformation.get_password(username, user_data)
 #testing
-print(f'{username} with password {password} has a balance of ${balance}.')
-balance = BlackJack.play_blackjack(balance)
-print(balance)
+
+play_game = BlackJack(balance)
+
+balance = play_game.play_blackjack()
+
+print(f'Thanks for playing! Your final balance is {balance}')
 
 
