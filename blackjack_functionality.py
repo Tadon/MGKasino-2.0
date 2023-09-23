@@ -271,9 +271,3 @@ class BlackJack:
     def deal_card(self):
         card_list = list(CardFunctions.card_deck.values())
         return random.choice(card_list)    
-    
-play = BlackJack(1000)
-
-balance = play.play_blackjack()
-
-print(f'Your balance after playing blackjack is {balance}.')
