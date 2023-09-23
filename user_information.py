@@ -24,10 +24,17 @@ class UserInformation:
     #changing balance
     def change_balance(username,password, user_data, amount):
         user_data[username]['balance'] = amount
+        with open(filename, 'r') as file:
+             data = list(csv.reader(file))
+
+        for i, row in enumerate(data):
+             if row[0] == username:
+                  data[i][2] = str(amount)
+
         with open(filename, 'w', newline = '\n') as file:
             csv_writer = csv.writer(file)
-            for user, data in user_data.items():
-                csv_writer.writerow([user, data['password'], data['balance']])
+            csv_writer.writerows(data)
+            
     #returning balance for specified username
     def get_password(username, user_data):
         return user_data[username]['password']

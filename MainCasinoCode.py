@@ -23,6 +23,7 @@ play_game = BlackJack(balance)
 
 balance = play_game.play_blackjack()
 
+
+
+UserInformation.change_balance(username, password, user_data, balance)
 print(f'Thanks for playing! Your final balance is {balance}')
-
-
